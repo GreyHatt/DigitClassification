@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  digit_classification:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: python plot_digits_classification.py
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8888:8888"
