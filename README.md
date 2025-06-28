@@ -2,6 +2,10 @@
 
 This project demonstrates how to recognize hand-written digits using scikit-learn. It utilizes a support vector classifier to train on the digits dataset and visualize the results.
 
+## Modification
+
+Modify the readme.me in branch1
+
 ## Project Structure
 
 ```
