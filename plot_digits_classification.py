@@ -15,8 +15,10 @@ hand-written digits, from 0-9.
 
 # Import datasets, classifiers and performance metrics
 from sklearn import datasets
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.svm import SVC
 from utils import (
-    load_and_plot,
+    plot_digits,
     classifiction_and_plot_predicted,
     print_classication_report,
     display_confusion_matrix,
@@ -37,7 +39,31 @@ from utils import (
 # Note: if we were working from image files (e.g., 'png' files), we would load
 # them using :func:`matplotlib.pyplot.imread`.
 digits = datasets.load_digits()
-load_and_plot(digits)
+plot_digits(digits)
+
+n_samples = len(digits.images)
+data = digits.images.reshape((n_samples, -1))
+
+param_grid = {
+    'gamma': [0.001, 0.01, 0.1, 1],
+    'C': [0.1, 1, 10, 100],
+}
+
+dev_size = 0.5  # You can tune this value as well
+X_train, X_test, y_train, y_test = train_test_split(
+    data, digits.target, test_size=dev_size, shuffle=True, random_state=42
+)
+
+svc = SVC()
+grid_search = GridSearchCV(svc, param_grid, cv=5, scoring='accuracy')
+grid_search.fit(X_train, y_train)
+
+best_params = grid_search.best_params_
+clf = grid_search.best_estimator_
+
+print(f"Best Parameters: {best_params}")
+
+predicted = clf.predict(X_test)
 
 y_test, predicted, clf = classifiction_and_plot_predicted(digits)
 
