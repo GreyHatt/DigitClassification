@@ -16,7 +16,7 @@ hand-written digits, from 0-9.
 # Import datasets, classifiers and performance metrics
 from sklearn import datasets
 from utils import (
-    load_and_plot,
+    plot_digits,
     classifiction_and_plot_predicted,
     print_classication_report,
     display_confusion_matrix,
@@ -37,7 +37,7 @@ from utils import (
 # Note: if we were working from image files (e.g., 'png' files), we would load
 # them using :func:`matplotlib.pyplot.imread`.
 digits = datasets.load_digits()
-load_and_plot(digits)
+plot_digits(digits)
 
 y_test, predicted, clf = classifiction_and_plot_predicted(digits)
 
